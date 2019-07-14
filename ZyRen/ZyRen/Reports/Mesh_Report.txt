@@ -1,0 +1,8 @@
+Vertices: 1258
+Textures: 1339
+Normals: 1258
+Faces: 2492
+Vertices processed: 1258
+Textures processed: 1339
+Normals processed: 1258
+Faces processed: 2492
