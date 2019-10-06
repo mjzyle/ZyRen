@@ -1,3 +1,3 @@
 # ZyRen
 
-*ZyRen* is an in-progress custom C++ rendering engine.
+*ZyRen* is a custom C++ rendering engine.
