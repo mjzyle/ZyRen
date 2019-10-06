@@ -1,11 +1,13 @@
 ﻿  main.cpp
-C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(123,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(123,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(144,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(144,16): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(227,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(227,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(240,91): warning C4244: 'argument': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(240,74): warning C4244: 'argument': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(240,57): warning C4244: 'argument': conversion from 'float' to 'unsigned char', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(126,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(126,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(155,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(155,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(156,78): warning C4244: 'argument': conversion from 'float' to 'unsigned char', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(156,58): warning C4244: 'argument': conversion from 'float' to 'unsigned char', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(156,38): warning C4244: 'argument': conversion from 'float' to 'unsigned char', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(157,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(157,16): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(198,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(198,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   ZyRen.vcxproj -> C:\Projects\ZyRen\ZyRen\Debug\ZyRen.exe

@@ -45,7 +45,7 @@ Mesh::Mesh(char *_filename) {
 	// Process mesh data
 	verts = new Vertex[vertCount];
 	faces = new Face[faceCount];
-	texts = new Vec3f[texCount];
+	texts = new Vec2f[texCount];
 	objectFile.open(_filename);
 	if (objectFile.is_open()) {
 		int vertsProcessed = 0, normsProcessed = 0, textsProcessed = 0, facesProcessed = 0;
@@ -138,7 +138,7 @@ Face Mesh::getFace(int i) {
 	return faces[i];
 }
 
-Vec3f Mesh::getTex(int i) {
+Vec2f Mesh::getTex(int i) {
 	return texts[i];
 }
 

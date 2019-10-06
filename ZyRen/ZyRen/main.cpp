@@ -21,6 +21,9 @@ const TGAColor blue = TGAColor(0, 0, 255, 255);
 const int width = 800;
 const int height = 800;
 
+// Texture variables
+TGAImage texture;
+
 // Lighting variables
 Vec3f light_dir(0, 0, -1);
 
@@ -116,41 +119,8 @@ Vec3f barycentric(Vec3f *points, Vec3f p) {
 }
 
 
-// Improved triangle drawing method using bounding box and barycentric coordinates
-void triangle(Vec3f *points, float *zbuffer, TGAImage &image, TGAColor color) {
-	Vec2f bboxmin( std::numeric_limits<float>::max(),  std::numeric_limits<float>::max());
-	Vec2f bboxmax(-std::numeric_limits<float>::max(), -std::numeric_limits<float>::max());
-	Vec2f clamp(image.get_width() - 1, image.get_height() - 1);
-
-	for (int i = 0; i < 3; i++) {
-		bboxmin.x = max(   0.0f, min(bboxmin.x, points[i].x));
-		bboxmax.x = min(clamp.x, max(bboxmax.x, points[i].x));
-		bboxmin.y = max(   0.0f, min(bboxmin.y, points[i].y));
-		bboxmax.y = min(clamp.y, max(bboxmax.y, points[i].y));
-	}
-
-	Vec3f p;
-	for (p.x = bboxmin.x; p.x <= bboxmax.x; p.x++) {
-		for (p.y = bboxmin.y; p.y <= bboxmax.y; p.y++) {
-			Vec3f bc_screen = barycentric(points, p);
-			if (bc_screen.x < 0 || bc_screen.y < 0 || bc_screen.z < 0) continue;
-
-			p.z = 0;
-			p.z += points[0].z * bc_screen.x;
-			p.z += points[1].z * bc_screen.y;
-			p.z += points[2].z * bc_screen.z;
-			if (zbuffer[int(p.x + p.y * width)] < p.z) {
-				zbuffer[int(p.x + p.y * width)] = p.z;
-				image.set(p.x, p.y, color);
-			}
-
-		}
-	}
-}
-
-/*
 // Texture-mapped triangle
-void triangle_textured(Vec4f *points, float *zbuffer, TGAImage &image, std::vector<int> text, float intensity, Mesh m) {
+void triangle(Vec3f *points, float *zbuffer, TGAImage &image, Vec2f *tex, float intensity, Mesh m) {
 	Vec2f bboxmin(std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 	Vec2f bboxmax(-std::numeric_limits<float>::max(), -std::numeric_limits<float>::max());
 	Vec2f clamp(image.get_width() - 1, image.get_height() - 1);
@@ -162,11 +132,6 @@ void triangle_textured(Vec4f *points, float *zbuffer, TGAImage &image, std::vect
 		bboxmax.y = min(clamp.y, max(bboxmax.y, points[i].y));
 	}
 
-	// Save UV values for each vertex of the face
-	Vec3f uvA, uvB, uvC;
-	uvA = model->uv(text[0] - 1);
-	uvB = model->uv(text[1] - 1);
-	uvC = model->uv(text[2] - 1);
 
 	Vec3f p;
 	for (p.x = bboxmin.x; p.x <= bboxmax.x; p.x++) {
@@ -183,8 +148,8 @@ void triangle_textured(Vec4f *points, float *zbuffer, TGAImage &image, std::vect
 
 				// Interpolate UV values using barycentric coordinates of the face
 				Vec3f uvI;
-				uvI.x = bc_screen.x * uvA.x + bc_screen.y * uvB.x + bc_screen.z * uvC.x;
-				uvI.y = bc_screen.x * uvA.y + bc_screen.y * uvB.y + bc_screen.z * uvC.y;
+				uvI.x = bc_screen.x * tex[0].x + bc_screen.y * tex[1].x + bc_screen.z * tex[2].x;
+				uvI.y = bc_screen.x * tex[0].y + bc_screen.y * tex[1].y + bc_screen.z * tex[2].y;
 
 				// Use inteprolated UV to determine color from the diffuse map
 				TGAColor temp = texture.get(uvI.x * texture.get_width(), uvI.y * texture.get_height());
@@ -195,7 +160,7 @@ void triangle_textured(Vec4f *points, float *zbuffer, TGAImage &image, std::vect
 		}
 	}
 }
-*/
+
 
 int main(int argc, char** argv) {
 	Mesh m = Mesh("Meshes/head.obj");
@@ -205,13 +170,19 @@ int main(int argc, char** argv) {
 	mainReport.open("Reports/Main_Report.txt");
 
 	TGAImage scene(width, height, TGAImage::RGB);
+	
 	float *zbuffer = new float[width * height];
+
+	texture.read_tga_file("Textures/head_diffuse.tga");
+	texture.flip_vertically();
 
 	int facesProcessed = 0, facesDrawn = 0;
 
 	// Process each triangular face
 	for (int i = 0; i < m.getFaceCount(); i++) {
 		Face f = m.getFace(i);
+		Vec2f tex[3] = { m.getTex(f.texts[0] - 1), m.getTex(f.texts[1] - 1) , m.getTex(f.texts[2] - 1) };
+
 		Vec3f coords_screen[3], coords_world[3];
 		mainReport << "Processing face " << i + 1 << endl;
 
@@ -229,6 +200,8 @@ int main(int argc, char** argv) {
 
 			mainReport << "        Converted to screen coordinates "
 				<< coords_screen[j].x << " " << coords_screen[j].y << " " << coords_screen[j].z << endl;
+
+
 		}
 
 		Vec3f norm = cross(sub(coords_world[2], coords_world[0]), sub(coords_world[1], coords_world[0]));
@@ -237,7 +210,7 @@ int main(int argc, char** argv) {
 		mainReport << "    Intensity = " << intensity << endl;
 
 		if (intensity > 0) {
-			triangle(coords_screen, zbuffer, scene, TGAColor(255 * intensity, 255 * intensity, 255 * intensity, 255));
+			triangle(coords_screen, zbuffer, scene, tex, intensity, m);
 			facesDrawn++;
 			mainReport << "    Face drawn" << endl;
 		}
