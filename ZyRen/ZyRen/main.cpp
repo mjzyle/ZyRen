@@ -20,12 +20,14 @@ const TGAColor green = TGAColor(0, 255, 0, 255);
 const TGAColor blue = TGAColor(0, 0, 255, 255);
 const int width = 800;
 const int height = 800;
+const bool drawPerspective = true;
 
 // Texture variables
 TGAImage texture;
 
 // Lighting variables
 Vec3f light_dir(0, 0, -1);
+Vec3f camera(0, 0, -10);
 
 
 // Vector * Vector
@@ -103,6 +105,21 @@ Mat4x4 mult(Mat4x4 m1, Mat4x4 m2) {
 Vec3f normalize(Vec3f v) {
 	float mag = sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
 	return Vec3f(v.x / mag, v.y / mag, v.z / mag);
+}
+
+
+// Convert world coordinates to screen coordinates
+Vec3f world2screen(Vec3f v) {
+	return Vec3f(int((v.x + 1.0) * width / 2.0 + 0.5), int((v.y + 1.0) * height / 2.0 + 0.5), v.z);
+}
+
+
+// Apply a perspective transformation to a point
+Vec3f perspective(Vec3f v) {
+	Vec4f vh = Vec4f(v.x, v.y, v.z, 1.0f);
+	Mat4x4 m = Mat4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -1 / camera.z, 1);
+	Vec4f temp = mult(m, vh);
+	return Vec3f(temp.x / temp.h, temp.y / temp.h, temp.z / temp.h);
 }
 
 
@@ -195,7 +212,13 @@ int main(int argc, char** argv) {
 			mainReport << "        (x,y,z) = " 
 				<< m.getVert(k).loc.x << " " << m.getVert(k).loc.y << " " << m.getVert(k).loc.z << endl;
 
-			coords_screen[j] = Vec3f(int((v.x + 1.0) * width / 2.0 + 0.5), int((v.y + 1.0) * height / 2.0 + 0.5), v.z);
+			if (drawPerspective) {
+				coords_screen[j] = world2screen(perspective(v));
+			}
+			else {
+				coords_screen[j] = world2screen(v);
+			}
+			
 			coords_world[j] = v;
 
 			mainReport << "        Converted to screen coordinates "
