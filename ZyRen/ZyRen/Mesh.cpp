@@ -58,16 +58,14 @@ Mesh::Mesh(char *_filename) {
 				stream >> verts[vertsProcessed].loc.x;
 				stream >> verts[vertsProcessed].loc.y;
 				stream >> verts[vertsProcessed].loc.z;
-				verts[vertsProcessed].loc.h = 1.0f;
 				vertsProcessed++;
 			}
 			// Save vertex texture data
 			else if (!line.compare(0, 3, "vt ")) {
 				stream >> trash;
 				stream >> trash;
-				stream >> texts[textsProcessed].u;
-				stream >> texts[textsProcessed].v;
-				texts[textsProcessed].h = 0.0f;
+				stream >> texts[textsProcessed].x;
+				stream >> texts[textsProcessed].y;
 				textsProcessed++;
 			}
 			// Save vertex normal data
@@ -77,7 +75,6 @@ Mesh::Mesh(char *_filename) {
 				stream >> verts[normsProcessed].norm.x;
 				stream >> verts[normsProcessed].norm.y;
 				stream >> verts[normsProcessed].norm.z;
-				verts[normsProcessed].norm.h = 1.0f;
 				normsProcessed++;
 			}
 			// Save face data
@@ -87,19 +84,19 @@ Mesh::Mesh(char *_filename) {
 				stream >> trash;
 				stream >> faces[facesProcessed].texts[0];
 				stream >> trash;
-				stream >> trash;
+				stream >> faces[facesProcessed].norms[0];
 
 				stream >> faces[facesProcessed].verts[1];
 				stream >> trash;
 				stream >> faces[facesProcessed].texts[1];
 				stream >> trash;
-				stream >> trash;
+				stream >> faces[facesProcessed].norms[1];
 
 				stream >> faces[facesProcessed].verts[2];
 				stream >> trash;
 				stream >> faces[facesProcessed].texts[2];
 				stream >> trash;
-				stream >> trash;
+				stream >> faces[facesProcessed].norms[2];
 
 				facesProcessed++;
 			}
@@ -112,6 +109,17 @@ Mesh::Mesh(char *_filename) {
 	}
 	else {
 		cout << "ERROR: Unable to open file " << _filename << endl;
+	}
+
+	// Print ALL mesh details
+	for (int i = 0; i < faceCount; i++) {
+		objectReport << "Face " << i + 1 << ":" << endl;
+		for (int j = 0; j < 3; j++) {
+			objectReport << "    Vert " << faces[i].verts[j] <<
+				": x = " << verts[faces[i].verts[j] - 1].loc.x <<
+				", y = " << verts[faces[i].verts[j] - 1].loc.y <<
+				", z = " << verts[faces[i].verts[j] - 1].loc.z << endl;
+		}
 	}
 
 	objectReport.close();

@@ -3,10 +3,16 @@
 #include <cmath>
 
 
+struct Vec2f {
+	float x, y;
+	Vec2f() {}
+	Vec2f(float _x, float _y) { x = _x; y = _y; }
+};
+
 struct Vec3f {
-	float u, v, h;
+	float x, y, z;
 	Vec3f() {}
-	Vec3f(float _u, float _v, float _h) { u = _u; v = _v; h = _h; }
+	Vec3f(float _x, float _y, float _z) { x = _x; y = _y; z = _z; }
 };
 
 struct Vec4f {
@@ -31,17 +37,18 @@ struct Mat4x4 {
 };
 
 struct Vertex {
-	Vec4f loc, norm;
+	Vec3f loc, norm;
 	Vertex() {}
-	Vertex(Vec4f _loc, Vec4f _norm, Vec3f _tex) { loc = _loc; norm = _norm; }
+	Vertex(Vec3f _loc, Vec3f _norm, Vec2f _tex) { loc = _loc; norm = _norm; }
 };
 
 // Face structure stores an array of integers corresponding to its associated vertices
 struct Face {
-	int verts[3], texts[3];
+	int verts[3], texts[3], norms[3];
 	Face() {}
-	Face(int _verts[3], int _texts[3]) {
+	Face(int _verts[3], int _texts[3], int _norms[3]) {
 		for (int i = 0; i < 3; i++) { verts[i] = _verts[i]; }
 		for (int i = 0; i < 3; i++) { texts[i] = _texts[i]; }
+		for (int i = 0; i < 3; i++) { norms[i] = _norms[i]; }
 	}
 };
