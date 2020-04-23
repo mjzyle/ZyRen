@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-﻿  Mesh.cpp
-  main.cpp
-=======
 ﻿  main.cpp
->>>>>>> a5f12c01788aed3c6838862a52b66dd66ea08076
 C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(113,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(113,18): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(143,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
@@ -15,9 +10,7 @@ C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(173,58): warning C4244: 'argument': conve
 C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(173,38): warning C4244: 'argument': conversion from 'float' to 'unsigned char', possible loss of data
 C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(174,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Projects\ZyRen\ZyRen\ZyRen\main.cpp(174,16): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-<<<<<<< HEAD
+  Mesh.cpp
   tgaimage.cpp
   Generating Code...
-=======
->>>>>>> a5f12c01788aed3c6838862a52b66dd66ea08076
   ZyRen.vcxproj -> C:\Projects\ZyRen\ZyRen\Debug\ZyRen.exe
