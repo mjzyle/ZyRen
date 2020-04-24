@@ -111,14 +111,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Algebra.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Render.cpp" />
     <ClCompile Include="tgaimage.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Algebra.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Render.h" />
     <ClInclude Include="tgaimage.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

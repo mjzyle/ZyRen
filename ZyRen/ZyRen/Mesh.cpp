@@ -7,9 +7,8 @@
 
 using namespace std;
 
-
+// CONSTRUCTORS
 Mesh::Mesh(char *_filename) {
-
 	// Determine counts for mesh attributes to allocate space appropriately
 	string line;
 	ifstream objectFile;
@@ -123,13 +122,12 @@ Mesh::Mesh(char *_filename) {
 	}
 
 	objectReport.close();
-
 }
-
 
 Mesh::~Mesh() {
 }
 
+// METHODS
 Vertex Mesh::getVert(int i) {
 	return verts[i];
 }
